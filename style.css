@@ -1,0 +1,391 @@
+/* ==========================================================================
+   CSS Variables & Design Tokens
+   ========================================================================== */
+:root {
+  /* Colors */
+  --bg-default: #F4F6FB;
+  --card-bg: rgba(255, 255, 255, 0.94);
+  --card-border: rgba(255, 255, 255, 0.7);
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --primary-color: #4F46E5;
+  --primary-hover: #4338CA;
+  --primary-active: #3730A3;
+  --secondary-bg: #F1F5F9;
+  --secondary-hover: #E2E8F0;
+  --secondary-border: #CBD5E1;
+  --reset-hover-bg: #FEE2E2;
+  --reset-hover-text: #DC2626;
+  --reset-hover-border: #FCA5A5;
+  --success-color: #059669;
+
+  /* Typography */
+  --font-main: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Sizing & Radius */
+  --radius-card: 20px;
+  --radius-preview: 16px;
+  --radius-btn: 12px;
+  --radius-sm: 8px;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Shadows */
+  --shadow-card: 0 20px 45px -10px rgba(15, 23, 42, 0.12),
+                 0 10px 20px -5px rgba(15, 23, 42, 0.06),
+                 0 0 0 1px var(--card-border);
+  --shadow-preview: inset 0 2px 5px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-btn-primary: 0 4px 14px rgba(79, 70, 229, 0.35);
+
+  /* Animation */
+  --transition-speed: 0.5s;
+  --transition-ease: ease;
+}
+
+/* ==========================================================================
+   CSS Reset & Base Styles
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-default);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-md);
+  /* Smooth transition for background color changes */
+  transition: background-color var(--transition-speed) var(--transition-ease);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Main Card Component
+   ========================================================================== */
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+/* Header */
+.card-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.725rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background-color: #EEF2FF;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-xs);
+}
+
+.card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
+}
+
+.card-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Color Preview Box & HEX Display
+   ========================================================================== */
+.preview-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.color-preview {
+  height: 120px;
+  border-radius: var(--radius-preview);
+  background-color: var(--bg-default);
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-preview);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  /* Smooth color transitions */
+  transition: background-color var(--transition-speed) var(--transition-ease),
+              color 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.preview-label {
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+  transition: color 0.25s ease;
+}
+
+.hex-code {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: color 0.25s ease;
+  user-select: all;
+}
+
+/* Copy status message */
+.copy-status {
+  min-height: 1.5rem;
+  margin-top: 0.4rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--success-color);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.copy-status.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Color Picker Section
+   ========================================================================== */
+.picker-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-btn);
+  padding: 0.65rem 1rem;
+  margin-bottom: var(--spacing-lg);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.picker-section:focus-within {
+  border-color: var(--primary-color);
+  background-color: #FFFFFF;
+}
+
+.picker-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+  user-select: none;
+}
+
+.picker-icon {
+  font-size: 1.1rem;
+}
+
+.picker-wrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #FFFFFF;
+}
+
+/* Native input styling reset */
+#color-picker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 160%;
+  height: 160%;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  background: transparent;
+}
+
+#color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+#color-picker::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+#color-picker::-moz-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   Control Buttons
+   ========================================================================== */
+.buttons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+.btn {
+  font-family: var(--font-main);
+  font-size: 0.925rem;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-btn);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  transition: transform 0.15s ease,
+              background-color 0.2s ease,
+              box-shadow 0.2s ease,
+              border-color 0.2s ease,
+              color 0.2s ease;
+  user-select: none;
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+}
+
+/* Primary Button: "Change Color" */
+.btn-primary {
+  grid-column: 1 / -1; /* spans full width on top */
+  background-color: var(--primary-color);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-btn-primary);
+  padding: 0.85rem 1.25rem;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  background-color: var(--primary-active);
+  transform: translateY(1px);
+}
+
+/* Secondary Button: "Copy Color Code" */
+.btn-secondary {
+  background-color: var(--secondary-bg);
+  color: var(--text-main);
+  border-color: var(--secondary-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+  border-color: #94A3B8;
+  transform: translateY(-1px);
+}
+
+/* Reset Button Accent */
+.btn-reset:hover {
+  background-color: var(--reset-hover-bg);
+  color: var(--reset-hover-text);
+  border-color: var(--reset-hover-border);
+}
+
+/* ==========================================================================
+   Responsive Design & Media Queries
+   ========================================================================== */
+@media (max-width: 480px) {
+  body {
+    padding: var(--spacing-sm);
+  }
+
+  .card {
+    padding: 1.5rem 1.15rem;
+    border-radius: 16px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .color-preview {
+    height: 105px;
+  }
+
+  .hex-code {
+    font-size: 1.5rem;
+  }
+
+  /* Stack all buttons vertically on mobile for thumb friendliness */
+  .buttons-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* ==========================================================================
+   Utility Classes & Start Button
+   ========================================================================== */
+.hidden {
+  display: none !important;
+}
+
+#btn-start {
+  width: 100%;
+}
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A modern, beginner-friendly Color Flipper web application built with vanilla HTML, CSS, and JavaScript." />
+  <title>Color Flipper</title>
+
+  <!-- Google Fonts: Poppins (Heading & UI) and JetBrains Mono (HEX Code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Start Screen Card -->
+  <main id="startScreen" class="card">
+    <header class="card-header">
+      <span class="badge">Vanilla JavaScript Demo</span>
+      <h1 class="card-title">Color Flipper</h1>
+      <p class="card-subtitle">Generate, pick and copy colors in one click.</p>
+    </header>
+
+    <button 
+      type="button" 
+      id="btn-start" 
+      class="btn btn-primary" 
+      aria-label="Start the Color Flipper"
+    >
+      ▶ Start
+    </button>
+  </main>
+
+  <!-- Main Application Card (Initially Hidden) -->
+  <main id="app" class="card hidden">
+    <!-- Header Section -->
+    <header class="card-header">
+      <span class="badge">Vanilla JavaScript Demo</span>
+      <h1 class="card-title">Color Flipper</h1>
+      <p class="card-subtitle">Generate random colors or pick a custom shade</p>
+    </header>
+
+    <!-- Color Preview Box with Contrast-Aware HEX Display -->
+    <section class="preview-section" aria-label="Color Preview Area">
+      <div id="color-preview" class="color-preview" role="region" aria-label="Current color swatch">
+        <span id="preview-label" class="preview-label">CURRENT COLOR</span>
+        <span id="hex-code" class="hex-code">#F4F6FB</span>
+      </div>
+
+      <!-- Live Notification for Copy Feedback -->
+      <div id="copy-status" class="copy-status" role="status" aria-live="polite">
+        Copied to clipboard!
+      </div>
+    </section>
+
+    <!-- Color Picker Control -->
+    <section class="picker-section">
+      <label for="color-picker" class="picker-label">
+        <span class="picker-icon" aria-hidden="true">🎨</span>
+        <span>Choose Custom Color:</span>
+      </label>
+      <div class="picker-wrapper">
+        <input 
+          type="color" 
+          id="color-picker" 
+          name="color-picker" 
+          value="#F4F6FB" 
+          aria-label="Select custom background color" 
+        />
+      </div>
+    </section>
+
+    <!-- Control Buttons -->
+    <section class="buttons-grid" aria-label="Color actions">
+      <button 
+        type="button" 
+        id="btn-random" 
+        class="btn btn-primary" 
+        aria-label="Generate random background color"
+      >
+        <span class="btn-icon" aria-hidden="true">🎲</span>
+        Change Color
+      </button>
+
+      <button 
+        type="button" 
+        id="btn-copy" 
+        class="btn btn-secondary" 
+        aria-label="Copy current HEX color code to clipboard"
+      >
+        <span class="btn-icon" aria-hidden="true">📋</span>
+        Copy Color Code
+      </button>
+
+      <button 
+        type="button" 
+        id="btn-reset" 
+        class="btn btn-secondary btn-reset" 
+        aria-label="Reset background color to default"
+      >
+        <span class="btn-icon" aria-hidden="true">🔄</span>
+        Reset
+      </button>
+    </section>
+  </main>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
